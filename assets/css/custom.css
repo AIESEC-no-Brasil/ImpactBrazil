@@ -1,0 +1,124 @@
+/**
+ * custom
+ * place custom style in this file
+ * add !important to the end if no effect
+ * e.g. color: #fff !important;
+ * --------------------------------------------------
+ *
+ */
+﻿/* @font-face kit by Fonts2u (http://www.fonts2u.com) */ 
+@font-face {
+	font-family:"True Lies";
+	src:url("assets/fonts/True_Lies.eot?") format("eot"),url("assets/fonts/True_Lies.woff") format("woff"),
+		url("assets/fonts/True_Lies.ttf") format("truetype"),url("assets/fonts/True_Lies.svg#TrueLies") format("svg");
+	font-weight:normal;
+	font-style:normal;
+}
+.fill{
+	width:30%;height:30%;padding-top:150px;box-sizing:border-box;
+}
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  line-height: 80px;
+  font-family: "True Lies", 'Lato', sans-serif;
+  color: #ecf0f1;
+  height: 160px;
+  overflow:hidden;
+}
+
+.visible {
+  font-weight:600;
+  overflow:hidden;
+  height: 80px;
+  padding:0 80px;
+  
+  &:before {
+    content:'[';
+    left: 0;
+    line-height:80px;
+  }
+  &:after {
+    content:']';
+    position:absolute;
+    right: 0;
+    line-height:80px;
+  }
+  &:after, &:before {
+    position:absolute;
+    top:0;
+    color:#16a085;
+    font-size:42px;
+    -webkit-animation-name: opacity;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    animation-name: opacity;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+
+  }
+}
+
+.cover2 {
+	height: 100%;
+}
+
+.cover p {
+  display:inline;
+  float:left;
+  margin:0;
+}
+
+.cover ul {
+  margin-top:0;
+  padding-left:250px;
+  text-align:left;
+  list-style:none;
+  -webkit-animation-name: change;
+  -webkit-animation-duration: 6s;
+  -webkit-animation-iteration-count: infinite;
+  animation-name: change;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+
+.cover ul li {
+  line-height:85px;
+  margin:0;
+  width: 500px;
+}
+
+@-webkit-keyframes opacity {
+  0%, 100% {opacity:0;}
+  50% {opacity:1;}
+}
+
+@-webkit-keyframes change {
+  0%, 12%, 100% {transform:translateY(0);}
+  17%,29% {transform:translateY(-25%);}
+  34%,46% {transform:translateY(-50%);}
+  51%,63% {transform:translateY(-75%);}
+  68%,80% {transform:translateY(-50%);}
+  85%,97% {transform:translateY(-25%);}
+}
+
+@keyframes opacity {
+  0%, 100% {opacity:0;}
+  50% {opacity:1;}
+}
+
+@keyframes change {
+  0%, 12%, 100% {transform:translateY(0);}
+  17%,29% {transform:translateY(-25%);}
+  34%,46% {transform:translateY(-50%);}
+  51%,63% {transform:translateY(-75%);}
+  68%,80% {transform:translateY(-50%);}
+  85%,97% {transform:translateY(-25%);}
+}
+
+.sdgs img {
+	cursor: pointer;
+}
