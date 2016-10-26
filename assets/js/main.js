@@ -884,5 +884,4 @@ offset = - $('.navbar-header').height();
       }
     };
   }
-
 })(jQuery);
