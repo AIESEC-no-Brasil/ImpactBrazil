@@ -5,6 +5,8 @@ app.controller('opportunitiesCtrl', function($scope,$http,$timeout,$filter) {
 	$scope.token = null;
 	$scope.list = [];
 	$scope.error = false;
+	$scope.sdg = 'all';
+	$scope.page = 1;
 	$http.get('https://opportunities.aiesec.org/js/1.0.0.op.js', {}).then(
 		function(response) {
 			console.log('Rolou! '+response.status);
@@ -17,12 +19,12 @@ app.controller('opportunitiesCtrl', function($scope,$http,$timeout,$filter) {
 			$scope.error = true;
 	});
 
-	$scope.get_opportunities = function(sdg) {
+	$scope.get_opportunities = function(sdg,page) {
 		var param = {
 				'access_token':$scope.token,
-				'per_page':20,'page':1,
+				'per_page':20,'page':page,
 				'filters[earliest_start_date]':$filter('date')(new Date(), 'yyyy-MM-dd'),
-				'filters[programmes][]':1,
+				//'filters[programmes][]':1,
 				'filters[home_mcs][]':1606
 			};
 
@@ -34,7 +36,7 @@ app.controller('opportunitiesCtrl', function($scope,$http,$timeout,$filter) {
 			function(response) {
 				console.log('Rolou! '+response.status);
 				console.log(response.data);
-				$scope.list = response.data.data;
+				$scope.list = $scope.list.concat(response.data.data);
 				$scope.loading = false;
 			}, 
 			function(response) {
@@ -47,9 +49,17 @@ app.controller('opportunitiesCtrl', function($scope,$http,$timeout,$filter) {
 
 	$scope.filterSDG = function(sdg) {
 		$scope.error = false;
-		$scope.loading = true;
 		$scope.list = [];
-		$scope.get_opportunities(sdg);
+		$scope.page = 1;
+		$scope.get_opportunities(sdg,$scope.page);
+		$scope.sdg = sdg;
+	};
+
+	$scope.more_opportunities = function() {
+		console.log('jnsdcjknskdjn');
+		$scope.error = false;
+		$scope.page++;
+		$scope.get_opportunities($scope.sdg,$scope.page);
 	};
 
 	$scope.sdg_color = function(sdg) {
