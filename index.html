@@ -322,6 +322,23 @@ What are you waiting to Impact Brazil, - With us and for you? </p>
           a.appendChild(r);
       })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
   </script>
+  <script type="text/javascript">
+    mixpanel.track_links(".nav a", "click nav link", {
+        "referrer": document.referrer
+    });
+    mixpanel.track_links("#brief_1 .btn", "click Discover Button", {
+        "referrer": document.referrer
+    });
+    mixpanel.track_links("#brief_2 .btn", "click GV Button", {
+        "referrer": document.referrer
+    });
+    mixpanel.track_links("#brief_3 .btn", "click GT Button", {
+        "referrer": document.referrer
+    });
+    mixpanel.track_links("#brief_4 .btn", "click GE Button", {
+        "referrer": document.referrer
+    });
+  </script>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

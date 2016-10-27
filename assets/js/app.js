@@ -53,6 +53,7 @@ app.controller('opportunitiesCtrl', function($scope,$http,$timeout,$filter) {
 		$scope.page = 1;
 		$scope.get_opportunities(sdg,$scope.page);
 		$scope.sdg = sdg;
+		mixpanel.track("filterSDG", {"sdg": sdg});
 	};
 
 	$scope.more_opportunities = function() {
@@ -60,6 +61,7 @@ app.controller('opportunitiesCtrl', function($scope,$http,$timeout,$filter) {
 		$scope.error = false;
 		$scope.page++;
 		$scope.get_opportunities($scope.sdg,$scope.page);
+		mixpanel.track("more_opportunities", {"sdg": $scope.sdg});
 	};
 
 	$scope.sdg_color = function(sdg) {
