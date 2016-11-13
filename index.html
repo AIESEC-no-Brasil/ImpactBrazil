@@ -21,296 +21,31 @@
   <!--[if lte IE 9]><!-->
   <script src='assets/js/vendor/html5shiv.min.js'></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-  <script type="text/javascript" src="assets/js/app.js"></script>
+  <script src="https://code.angularjs.org/1.5.8/angular-animate.min.js"></script>
   <!-- start Mixpanel --><script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
 0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
 for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
 mixpanel.init("77be8b85a1cf7451982c23f9cf1a6d4c");</script><!-- end Mixpanel -->
   <!--<![endif]-->
 </head>
-<body>
+<body ng-app="impactbrazil" class="view-animate-container">
 
-  <div class="site">
-    <div class="site-loader">
-      <div class="site-loader-spinner"></div>
-    </div> <!-- .site-loader -->
-
-    <div class="site-canvas">
-      <header class="site-header">
-        <nav class="navbar navbar-theme">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <div class="navbar-brand-wrap">
-                <a class="navbar-brand" href="#">
-                  <img src="assets/img/site-header.png" alt="">
-                </a>
-              </div>
-            </div> <!-- .navbar-header -->
-
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-              <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#home">Home</a></li>
-                <li><a href="#brief_1">About</a></li>
-                <li><a href="#brief_2">Volunteer</a></li>
-                <li><a href="#brief_3">Talent</a></li>
-                <li><a href="#brief_4">Entrepreneur</a></li>
-                <li><a class="hidden" href="#pricing">Opportunities</a></li>
-                <li class="audio-toggle"><a href="#"><i class="fa fa-volume-up"></i></a></li>
-              </ul>
-            </div> <!-- .navbar-collapse -->
-          </div>
-        </nav>
-      </header> <!-- .site-header -->
-      <main class="site-main">
-        <div id="home" class="section block-primary position-r align-c-xs-max">
-          <div id="particles-js" class="site-bg">
-            <div class="site-bg-img"></div>
-            <div class="site-bg-video"></div>
-            <div class="site-bg-overlay"></div>
-            <div class="site-bg-effect layer" data-depth=".30"></div>
-            <canvas class="site-bg-canvas layer" data-depth=".30"></canvas>
-          </div> <!-- .site-bg -->
-
-          <div class="container align-c fill visible-md visible-lg">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="col-inner">
-                  <div class="section-heading content cover">
-                    <div class="visible">
-                      <p>Impact</p>
-                      <ul>
-                        <li>your limits</li>
-                        <li>your taste</li>
-                        <li>your heart</li>
-                        <li>Brazil</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="container align-c visible-sm visible-xs">
-            <div class="row row-table">
-              <div class="col-sm-6">
-                <div class="col-inner" data-sr="left">
-                  <div class="section-heading mobile_cover">
-                    <h1 class="mobile_cover">Impact Brazil</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> <!-- #home -->
-
-        <div id="brief_1" class="section block-default align-c-xs-max">
-          <div class="container align-c">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="col-inner">
-                  <div class="section-heading">
-                    <img src="assets/img/stamp.png" style="width:20%;height:20%;" alt="">
-                    <h1><big>Impact Brazil</big></h1>
-                    <p><b>When we talk about Impact, it demands us to act</b>. And <u>action</u>, is what moves us every single day to deliver leadership to the world and to our country.<br/>
- We don't want to be just Brazilians on board for the change we want to see happening. We invite the world to build with us a legion of changemakers, raising a fearless movement. If you found us, you must have your reasons. You must be willing to develop yourself, change the way you think and see things - And grow as a human being - For us, what matters is having your own cause - <b>But being open to join us, in a life changing journey</b>.<br/> 
-What are you waiting to Impact Brazil, - With us and for you? </p>
-                  </div>
-                  <div class="section-content">
-                    <a class="btn btn-pink m-y-5" href="#brief_2">Discover your Journey with us</a>
-                  </div> <!-- .section-content -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> <!-- #brief_1 -->
-
-        <div id="brief_2" class="section block-warning align-c-xs-max">
-          <div class="container">
-            <div class="row row-table">
-              <div class="col-sm-6 m-b-60-xs-max p-r-60-md-min">
-                <div class="col-inner clearfix visible-sm visible-md visible-lg">
-                  <img class="img-responsive float-l-sm-min m-x-auto-xs-max" src="assets/img/item/brief-2.png" alt="" data-sr="left">
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="col-inner">
-                  <div class="section-heading">
-                    <h5>Work on a</h5>
-                    <h2>NGO</h2>
-                  </div> <!-- .section-heading -->
-                  <div class="section-content">
-                    <p>In a country where inequality reaches high levels, the 3rd sector is not only fundamental but an enviroment full of opportunities. In Brazil, AIESEC works with projects all designed to contribute to the Sustainable Development Goals with methodologies that makes the exchange participant a learning facilitator, from marketing to educational projects.</p>
-                    <a class="btn btn-pink m-y-5" href="https://opportunities.aiesec.org/programmes/GV?home_mcs%5B%5D=1606" target="_blank">Apply for Opportunities</a>
-                  </div> <!-- .section-content -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> <!-- #brief_2 -->
-
-        <div id="brief_3" class="section block-success align-c-xs-max">
-          <div class="container">
-            <div class="row row-table">
-              <div class="col-sm-6">
-                <div class="col-inner">
-                  <div class="section-heading">
-                    <h5>Work on a</h5>
-                    <h2>Company</h2>
-                    <p>Brazil is a country full of diversity not just on the mother nature, our economy is moved by different industries and services. Our Professional Projects are focus on Marketing, Business, Teaching, IT and Engineering and provide to international students an opportunity to have a professional experience in these fields.</p>
-                  </div> <!-- .section-heading -->
-                  <div class="section-content">
-                    <a class="btn btn-invert m-y-5" href="https://opportunities.aiesec.org/programmes/GT?home_mcs%5B%5D=1606" target="_blank">Apply for Opportunities</a>
-                  </div> <!-- .section-content -->
-                </div>
-              </div>
-              <div class="col-sm-6 m-t-60-xs-max p-l-60-md-min">
-                <div class="col-inner clearfix visible-sm visible-md visible-lg">
-                  <img class="img-responsive float-r-sm-min m-x-auto-xs-max" src="assets/img/item/brief-3.png" alt="" data-sr="right">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> <!-- #brief_3 -->
-
-        <div id="brief_4" class="section block-warning align-c-xs-max">
-          <div class="container">
-            <div class="row row-table">
-              <div class="col-sm-6 m-b-60-xs-max p-r-60-md-min">
-                <div class="col-inner clearfix visible-sm visible-md visible-lg">
-                  <img class="img-responsive float-l-sm-min m-x-auto-xs-max" src="assets/img/item/brief-4.png" alt="" data-sr="left">
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="col-inner">
-                  <div class="section-heading">
-                    <h5>Work on a</h5>
-                    <h2>Startup</h2>
-                  </div> <!-- .section-heading -->
-                  <div class="section-content">
-                    <p>Brazil is globally one of the countries that is most growing in the entrepreneur scenario. With this entrepreneur culture getting stronger in Brazil the startup movement increase more than 40%. The Venture Project is an opportunity for entrepreneur students come to Brazil and work in a startup during the period of 8-12 weeks. A challenging and innovating environment is waiting for you!</p>
-                    <a class="btn btn-pink m-y-5" href="https://opportunities.aiesec.org/programmes/GT?home_mcs%5B%5D=1606&is_ge=true" target="_blank">Apply for Opportunities</a>
-                  </div> <!-- .section-content -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> <!-- #brief_4 -->
-
-        <div id="pricing" class="section block-light align-c" ng-app="impactbrazil">
-          <div class="container" ng-controller="opportunitiesCtrl">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="col-inner">
-                  <div class="section-heading">
-                    <h5>Come to impact!</h5>
-                    <h2>Available Opportunities</h2>
-                    <p>On Sep 2015, every UN member state adopted a set of goals to end poverty, protect the planet, and ensure prosperity for all as part of a new sustainable development agenda. Each goal has specific targets to be achieved over the next 15 years. For the goals to be reached, everyone needs to do their part: governments, the private sector, civil society and people like you.</p>
-                  </div>
-                  <div class="section-content sdgs">
-                    <div class="row visible-md visible-lg">
-                      <span class="col-xs-12 col-sm-1"><h5>Filters:</h5></span>
-                      <img src="assets/img/sdgs/GG.png" class="col-xs-12 col-sm-1" alt="" ng-click="filterSDG(all)">
-                      <img src="assets/img/sdgs/SDG1.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg1')">
-                      <img src="assets/img/sdgs/SDG2.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg2')">
-                      <img src="assets/img/sdgs/SDG3.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg3')">
-                      <img src="assets/img/sdgs/SDG4.png" class="col-xs-12 col-sm-1" alt="" ng-click="filterSDG(1104)">
-                      <img src="assets/img/sdgs/SDG5.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg5')">
-                      <img src="assets/img/sdgs/SDG6.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg6')">
-                      <img src="assets/img/sdgs/SDG7.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg7')">
-                      <img src="assets/img/sdgs/SDG8.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg8')">
-                      <img src="assets/img/sdgs/SDG9.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg9')">
-                      <img src="assets/img/sdgs/SDG10.png" class="col-xs-12 col-sm-1" alt="" ng-click="filterSDG(1110)">
-                      <img src="assets/img/sdgs/SDG11.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg11')">
-                      <img src="assets/img/sdgs/SDG12.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg12')">
-                      <img src="assets/img/sdgs/SDG13.png" class="col-xs-12 col-sm-1" alt="" ng-click="filterSDG(1113)">
-                      <img src="assets/img/sdgs/SDG14.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg14')">
-                      <img src="assets/img/sdgs/SDG15.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg15')">
-                      <img src="assets/img/sdgs/SDG16.png" class="col-xs-12 col-sm-1 hidden" alt="" ng-click="filterSDG('sdg16')">
-                      <img src="assets/img/sdgs/SDG17.png" class="col-xs-12 col-sm-1" alt="" ng-click="filterSDG(1117)">
-                    </div>
-                    <div class="row visible-sm visible-xs form-group required">
-                      <select class="form-control" ng-change="filterSDG(selected_sdg)" ng-model="selected_sdg">
-                        <option value="">SDG Filter</option>
-                        <option value="all">All SDGs</option>
-                        <option value="1104">SDG 4 - Quality Education</option>
-                        <option value="1110">SDG 10 - Reduced Inequalities</option>
-                        <option value="1113">SDG 13 - Climate Action</option>
-                        <option value="1117">SDG 17 - Partnership for the Goals</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="section-content m-t-60-sm-min">
-                    <div class="row">
-
-                      <div class="col-xs-12 col-sm-3 {{($index >= 4) ? 'opportunity' : ''}}" ng-repeat="opportunity in list track by $index">
-                        <div class="pricing-table m-t-0-xs-max">
-                          <div class="pricing-table-header block-{{sdg_color($index % 4)}}">
-                            <span class="pricing-table-badge">
-                              <i class="fa fa-{{sdg_badge(4)}}"></i>
-                            </span>
-                            <h5 class="pricing-table-caption">{{opportunity.title | limitTo:25}}</h5>
-                            <h2 class="pricing-table-title">{{opportunity.duration_max}} weeks</h2>
-                            <h6 class="pricing-table-caption">Starts on {{opportunity.applications_close_date | date:' MMMM d, y'}}</h6>
-                            <h6 class="pricing-table-caption">on {{opportunity.location | limitTo:25}}</h6>
-                          </div>
-                          <div class="pricing-table-footer block-light">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                              <a type="button" class="btn btn-invert" target="_blank" href="https://opportunities.aiesec.org/opportunity/{{opportunity.id}}" >See More</a>
-                              <a type="button" class="btn btn-invert hidden">Apply</a>
-                            </div>
-                          </div>
-                        </div> <!-- .pricing-table -->
-                      </div>
-
-                      <div class="container" ng-show="loading">
-                        <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                          <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-                        </svg>
-                      </div>
-                      <div class="container align-c" ng-show="error">
-                        <h4>Something get wrong - Try to filter again (:</h4>
-                        <img src="assets/img/flats/chemistry .gif" alt="">
-                      </div>
-                    </div>
-                  </div> <!-- .section-content -->
-                </div>
-              </div>
-            </div>
-            <div class="row" ng-show="list">
-              <div class="col-xs-12" style="padding-top:5%">
-                  <a class="btn btn-primary" ng-click="more_opportunities()">List More</a>
-              </div>
-            </div>
-          </div>
-        </div> <!-- #download -->
-        <div id="map-canvas"></div> <!-- #map-canvas -->
-      </main> <!-- .site-main -->
-      <footer class="site-footer block-invert">
-        <div class="container">
-          <img class="site-footer-logo img-responsive" src="assets/img/site-footer-logo.png" data-sr="bottom">
-          <ul class="site-footer-social-list">
-            <li><a href="https://www.facebook.com/AIESECinBrazil" target="_blank">Facebook</a></li>
-            <li><a href="https://instagram.com/aiesecnobrasil" target="_blank">Instagram</a></li>
-            <li><a href="https://www.linkedin.com/company/aiesec-no-brasil" target="_blank">LinkedIn</a></li>
-          </ul>
-          <p class="site-footer-copyright">2016 © <a href="#" target="_blank">AIESEC no Brasil</a> | all rights reserved.</p>
-        </div>
-      </footer> <!-- .site-footer -->
-    </div>
-  </div>
+  <div ui-view class="site view-animate"></div>
 
   <script src="assets/js/vendor/jquery-1.11.3.min.js"></script>
   <script src='assets/js/vendor/bootstrap.min.js'></script>
   <script src='assets/js/vendor/plugin.js'></script>
+  <script src="assets/js/vendor/ocLazyLoad.min.js"></script>
+  <script src="assets/js/vendor/angular-ui-router.min.js"></script>
+  <script src="assets/js/vendor/ui-bootstrap-tpls-1.1.2.min.js"></script>
   <script src='assets/js/variable.js'></script>
   <script src='assets/js/map.js'></script>
   <script src='assets/js/main.js'></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/directives.js"></script>
+  <script src="assets/js/controllers.js"></script>
+
   <!-- Hotjar Tracking Code for aiesec.org.br -->
   <script>
       (function(h,o,t,j,a,r){

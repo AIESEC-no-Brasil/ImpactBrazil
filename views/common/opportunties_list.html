@@ -1,0 +1,43 @@
+<div class="section-content m-t-60-sm-min align-c">
+  <div class="row section-heading align-c">
+    <h5>{{filter_map(filter)}}</h5>
+    <h2>Opportunities</h2>
+  </div>  
+  <div class="row">
+
+    <div class="col-xs-12 col-sm-3 {{($index >= 4) ? 'opportunity' : ''}}" ng-repeat="opportunity in list track by $index">
+      <div class="pricing-table m-t-0-xs-max">
+        <div class="pricing-table-header block-{{sdg_color($index % 4)}}">
+          <span class="pricing-table-badge">
+            <i class="fa fa-{{sdg_badge(4)}}"></i>
+          </span>
+          <h5 class="pricing-table-caption">{{opportunity.title | limitTo:24}}</h5>
+          <h2 class="pricing-table-title">{{opportunity.duration_max}} weeks</h2>
+          <h6 class="pricing-table-caption">Starts on {{opportunity.applications_close_date | date:' MMMM d, y'}}</h6>
+          <h6 class="pricing-table-caption">on {{opportunity.location | limitTo:25}}</h6>
+        </div>
+        <div class="pricing-table-footer block-light">
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <a type="button" class="btn btn-invert" target="_blank" href="https://opportunities.aiesec.org/opportunity/{{opportunity.id}}" >See More</a>
+            <a type="button" class="btn btn-invert hidden">Apply</a>
+          </div>
+        </div>
+      </div> <!-- .pricing-table -->
+    </div>
+
+    <div class="container" ng-show="loading">
+      <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+      </svg>
+    </div>
+    <div class="container align-c" ng-show="error">
+      <h4>Something get wrong - Try to filter again (:</h4>
+      <img src="assets/img/flats/chemistry .gif" alt="">
+    </div>
+  </div>
+</div> <!-- .section-content -->
+<div class="section-content " ng-show="list">
+  <div class="col-xs-12" style="padding-top:5% padding-bottom:5%">
+      <center><a class="btn btn-primary" ng-click="more_opportunities()">List More</a></center>
+  </div>
+</div>

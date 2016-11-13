@@ -1,0 +1,40 @@
+<div ng-include="'views/common/cover.html'"></div>
+<div ng-include="'views/common/portal.html'"></div>
+<div id="gv_op" class="container" ng-controller="opportunitiesCtrl">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="col-inner">
+        <!--<div class="section-heading">
+          <h5>Come to impact!</h5>
+          <h2>Available Opportunities</h2>
+          <p>On Sep 2015, every UN member state adopted a set of goals to end poverty, protect the planet, and ensure prosperity for all as part of a new sustainable development agenda. Each goal has specific targets to be achieved over the next 15 years. For the goals to be reached, everyone needs to do their part: governments, the private sector, civil society and people like you.</p>
+        </div>-->
+        <div class="section-content sdgs">
+          <div class="row section-heading align-c">
+            <h5>SDGs</h5>
+            <h2>Filter</h2>
+          </div>  
+          <div class="row visible-md visible-lg zoom">
+            <span class="col-xs-12 col-sm-2"></span>
+            <img src="assets/img/sdgs/GG.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterSDG(all)">
+            <img src="assets/img/sdgs/SDG4.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterSDG(1104)">
+            <img src="assets/img/sdgs/SDG10.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterSDG(1110)">
+            <img src="assets/img/sdgs/SDG13.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterSDG(1113)">
+            <img src="assets/img/sdgs/SDG17.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterSDG(1117)">
+          </div>
+          <div class="row visible-sm visible-xs form-group required">
+            <select class="form-control" ng-change="filterSDG(selected_sdg)" ng-model="selected_sdg">
+              <option value="">SDG Filter</option>
+              <option value="all">All SDGs</option>
+              <option value="1104">SDG 4 - Quality Education</option>
+              <option value="1110">SDG 10 - Reduced Inequalities</option>
+              <option value="1113">SDG 13 - Climate Action</option>
+              <option value="1117">SDG 17 - Partnership for the Goals</option>
+            </select>
+          </div>
+        </div>
+        <div ng-include="'views/common/opportunties_list.html'"></div>
+      </div>
+    </div>
+  </div>
+</div>
