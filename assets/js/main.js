@@ -5,7 +5,7 @@
 
 var $ = jQuery.noConflict();
 
-(function($) {
+function main($) {
   'use strict';
 
 //
@@ -884,4 +884,5 @@ offset = - $('.navbar-header').height();
       }
     };
   }
-})(jQuery);
+};
+main(jQuery);

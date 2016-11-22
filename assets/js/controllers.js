@@ -1,4 +1,4 @@
-function opportunitiesCtrl($scope,$http,$timeout,$filter) {
+function opportunitiesCtrl($scope,$http,$filter,$stateParams,$location,$anchorScroll) {
 	$scope.selected_sdg = 'all';
 	$scope.loading = false;
 	$scope.token = null;
@@ -6,32 +6,46 @@ function opportunitiesCtrl($scope,$http,$timeout,$filter) {
 	$scope.error = false;
 	$scope.filter = 'all';
 	$scope.page = 1;
+	console.log($stateParams);
+	console.log($stateParams.lc);
 	$http.get('https://opportunities.aiesec.org/js/1.0.0.op.js', {}).then(
 		function(response) {
-			console.log('Rolou! '+response.status);
 			$scope.token = response.data.match(/access_token:"(.*)",expires_in/g)[0].replace('access_token:"','').replace('",expires_in','');
-			console.log($scope.token);
-			$scope.get_opportunities('all');
-		}, 
+			if('gv' in $stateParams){
+				program = 1;
+				ge = undefined;
+			} else if ('gt' in $stateParams){
+				program = 2;
+				ge = false;
+			} else if ('ge' in $stateParams){
+				program = 2;
+				ge = true;
+			}
+			$scope.get_opportunities('all',1,program,ge);
+		},
 		function(response) {
 			console.log('Não rolou '+response.data);
 			$scope.error = true;
 	});
-
+	
 	$scope.get_opportunities = function(sdg,page,program,ge,backgrounds) {
 		var param = {
 			'access_token':$scope.token,
 			'per_page':20,'page':page,
 			'filters[earliest_start_date]':$filter('date')(new Date(), 'yyyy-MM-dd'),
 			'filters[programmes][]':program,
-			'filters[home_mcs][]':1606
+			'sort':'applications_closing'
 		};
-
+		if($stateParams.lc != undefined) {
+			param['filters[committee]'] = $stateParams.lc;
+		} else {
+			param['filters[home_mcs][]'] = 1606;
+		}
 		if (program == 2) {
 			param['filters[is_ge]'] = ge;
 			param['filters[work_fields][]']=backgrounds;
 		}
-		if (sdg != "all") { param['filters[sdg_goals][]'] = sdg; console.log(sdg);}
+		if (sdg != "all") { param['filters[sdg_goals][]'] = sdg; }
 
 		$scope.loading = true;
 		$http.get('https://gis-api.aiesec.org/v2/opportunities',{params:param}
@@ -91,7 +105,6 @@ function opportunitiesCtrl($scope,$http,$timeout,$filter) {
 	};
 
 	$scope.more_opportunities = function() {
-		console.log('jnsdcjknskdjn');
 		$scope.error = false;
 		$scope.page++;
 		filter = ($scope.program == 1) ? $scope.filter : 'all'
