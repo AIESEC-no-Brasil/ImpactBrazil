@@ -2,15 +2,11 @@
   <div class="row section-heading align-c">
     <h5>{{filter_map(filter)}}</h5>
     <h2>Opportunities</h2>
-  </div>  
+  </div>
   <div class="row">
-
     <div class="col-xs-12 col-sm-3 {{($index >= 4) ? 'opportunity' : ''}}" ng-repeat="opportunity in list track by $index">
       <div class="pricing-table m-t-0-xs-max">
         <div class="pricing-table-header block-{{sdg_color($index % 4)}}">
-          <span class="pricing-table-badge">
-            <i class="fa fa-{{sdg_badge(4)}}"></i>
-          </span>
           <h5 class="pricing-table-caption">{{opportunity.title | limitTo:24}}</h5>
           <h2 class="pricing-table-title">{{opportunity.duration_max}} weeks</h2>
           <h6 class="pricing-table-caption">Starts on {{opportunity.applications_close_date | date:' MMMM d, y'}}</h6>
@@ -18,7 +14,7 @@
         </div>
         <div class="pricing-table-footer block-light">
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <a type="button" class="btn btn-invert" target="_blank" href="https://opportunities.aiesec.org/opportunity/{{opportunity.id}}" >See More</a>
+            <a type="button" class="btn btn-invert" href="#/index/opportunity/{{opportunity.id}}" >See More</a>
             <a type="button" class="btn btn-invert hidden">Apply</a>
           </div>
         </div>

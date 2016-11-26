@@ -4,6 +4,8 @@
 		'ui.router',
 		'oc.lazyLoad',
 		'ui.bootstrap',
-		'ngAnimate'
+		'ngAnimate',
+        'ngStorage',					// ngStorage
+        'ngSanitize',					// ngStorage
 	])
 })();

@@ -1,6 +1,25 @@
-<div ng-include="'views/common/cover.html'"></div>
-<div ng-include="'views/common/portal.html'"></div>
-<div id="gt_op" class="container" ng-controller="opportunitiesCtrl">
+<div class="section block-primary position-r align-c-xs-max">
+    <div id="particles-js" class="site-bg">
+      <div class="site-bg-img" style="background-image: url('assets/img/bg/ge-bg-img2.jpg')"></div>
+      <div class="site-bg-overlay" style="background-color: rgba(0, 0, 0, 0.6);"></div>
+      <div class="site-bg-effect layer" data-depth=".30"></div>
+      <canvas class="site-bg-canvas layer" data-depth=".30" particles></canvas>
+    </div> 
+
+  <div class="container align-c">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="col-inner">
+          <div class="section-heading">
+            <h1>Global Talent</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- #home -->
+<div ng-include="'views/common/portal2.html'"></div>
+<div id="portal" class="container" ng-controller="opportunitiesCtrl">
   <div class="row">
     <div class="col-xs-12">
       <div class="col-inner">
@@ -15,12 +34,12 @@
             <h2>Filter</h2>
           </div>
           <div class="row visible-md visible-lg zoom">
-            <img src="assets/img/item/gt4.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground(false,'all')">
-            <img src="assets/img/gt/develop2.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground(false,'I.T.')">
-            <img src="assets/img/gt/gear2.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground(false,'Engineering')">
-            <img src="assets/img/gt/connect2.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground(false,'Marketing')">
-            <img src="assets/img/gt/move2.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground(false,'Business Administration')">
-            <img src="assets/img/gt/shout2.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground(false,'Education')">
+            <img src="assets/img/item/gt4.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground('all')">
+            <img src="assets/img/gt/develop2.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground('it')">
+            <img src="assets/img/gt/gear2.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground('engineering')">
+            <img src="assets/img/gt/connect2.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground('marketing')">
+            <img src="assets/img/gt/move2.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground('ba')">
+            <img src="assets/img/gt/shout2.png" class="col-xs-12 col-sm-2" alt="" ng-click="filterBackground('education')">
           </div>
           <div class="row visible-sm visible-xs form-group required">
             <select class="form-control" ng-change="filterSDG(selected_sdg)" ng-model="selected_sdg">

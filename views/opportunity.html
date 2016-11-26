@@ -1,0 +1,155 @@
+<div class="section block-primary position-r align-c-xs-max">
+    <div id="particles-js" class="site-bg">
+      <div class="site-bg-img" style="background-image: url({{opportunity.cover_photo_urls}})"></div>
+      <div class="site-bg-overlay" style="background-color: rgba(0, 0, 0, 0.6);"></div>
+      <div class="site-bg-effect layer" data-depth=".30"></div>
+      <canvas class="site-bg-canvas layer" data-depth=".30" particles></canvas>
+    </div> <!-- .site-bg -->
+
+  <div class="container align-c">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="col-inner">
+          <div class="section-heading">
+            <p ng-if="opportunity.programmes.id == 1">Global Volunteer</p>
+            <p ng-if="opportunity.programmes.id == 2 && opportunity.is_ge == false">Global Talent</p>
+            <p ng-if="opportunity.is_ge == true">Global Entrepreneur</p>
+            <h1>{{opportunity.title}}</h1>
+            <p><span class="glyphicon glyphicon-map-marker"></span> {{opportunity.location}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- #home -->
+<div class="block-white position-r ">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+          <div class="offer offer-radius offer-invert">
+            <div class="offer-content align-c">
+              <h7>Apply until {{opportunity.applications_close_date | date : 'fullDate'}}</h7>
+              <button class="btn btn-invert btn-block">Apply</button>
+            </div>
+          </div>
+          <div class="offer offer-radius offer-invert">
+            <div class="offer-content">
+              <h4 class="lead">Details</h4>
+              <table class="table table-hover">
+                <tr>
+                  <td>Start Between:
+                    <p> <b>{{opportunity.earliest_start_date | date : 'mediumDate'}}</b> to <b>{{opportunity.latest_end_date | date : 'mediumDate'}}</b> <span style="float: right;"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 
+                    Work for <span class="badge label-primary">{{opportunity.duration_min}}</span> weeks
+                    <span style="float: right;"><span class="glyphicon glyphicon-time"></span></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="badge label-primary">{{opportunity.available_openings}}</span> positions available
+                    <span style="float: right;"><span class="glyphicon glyphicon-user"></span></span>
+                  </td>
+                </tr>
+                <tr> 
+                  <td>
+                    Work schedule: <b>{{opportunity.specifics_info.expected_work_schedule.from}} – {{opportunity.specifics_info.expected_work_schedule.to}}</b>
+                    <span style="float: right;"><span class="glyphicon glyphicon-briefcase"></span></span>
+                  </td>
+                </tr>
+                <tr> 
+                  <td>
+                    Recienving {{opportunity.specifics_info.salary_currency}} <span class="badge label-primary">{{opportunity.specifics_info.salary}}</span> monthly
+                    <span style="float: right;"><span class="glyphicon glyphicon-usd"></span></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Responsible(s): 
+                    <span style="float: right;"><span class="glyphicon glyphicon-bullhorn"></span></span>
+                    <div ng-repeat="responsible in opportunity.managers"><br/>
+                    <a href="mailto:{{responsible.email}}">{{responsible.email}}</a></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="offer offer-radius offer-invert">
+            <div class="offer-content">
+              <h4 class="lead">Profile Needed</h4>
+              <table class="table table-hover">
+                <tr ng-repeat="skill in opportunity.skills">
+                  <td> {{skill.name}}
+                    <span style="float: right;"><span class="label label-danger" ng-if="skill.option == 'required'">Required</span><span class="label label-success" ng-if="skill.option == 'preferred'">Preferred</span></span>
+                  </td>
+                </tr>
+                <tr ng-repeat="lang in opportunity.languages">
+                  <td> {{lang.name}} <span class="label label-info" ng-if="lang.level == 3">Native</span><span class="label label-info" ng-if="lang.level == 2">Advanced</span><span class="label label-info" ng-if="lang.level == 1">Intermediare</span><span class="label label-info" ng-if="lang.level == 0">Basic</span>
+                    <span style="float: right;"><span class="label label-danger" ng-if="lang.option == 'required'">Required</span><span class="label label-success" ng-if="lang.option == 'preferred'">Preferred</span></span>
+                  </td>
+                </tr>
+                <tr ng-repeat="backgrounds in opportunity.backgrounds">
+                  <td> {{backgrounds.name}}
+                    <span style="float: right;"><span class="label label-danger" ng-if="backgrounds.option == 'required'">Required</span><span class="label label-success" ng-if="backgrounds.option == 'preferred'">Preferred</span></span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <div class="offer offer-radius offer-invert">
+            <div class="offer-content">
+              <h4 class="lead">Description</h4>
+              <p ng-bind-html="opportunity.description | nl2br">
+              </p>
+              <!--<p>
+                <uib-tabset justified="true">
+                  <uib-tab index="0" heading="Justified">Justified content</uib-tab>
+                  <uib-tab index="1" heading="SJ">Short Labeled Justified content</uib-tab>
+                  <uib-tab index="2" heading="Long Justified">Long Labeled Justified content</uib-tab>
+                </uib-tabset>
+              </p>-->
+            </div>
+          </div>
+          <div class="offer offer-radius offer-invert">
+            <div class="offer-content">
+              <h4 class="lead">Logistics</h4>
+              <h7>Health Insurance</h7>
+              <p ng-bind-html="opportunity.legal_info.health_insurance_info | nl2br">
+              </p>
+              <h7>Visa Information</h7>
+              <p ng-bind-html="opportunity.legal_info.visa_work_permit_info | nl2br">
+              </p>
+              <h7>Accomodation</h7>
+              <p ng-bind-html="opportunity.logistics_info.accommodation | nl2br">
+              </p>
+              <h7>Accomodation - Additional Information</h7>
+              <p ng-bind-html="opportunity.logistics_info.accommodation_additional_info | nl2br">
+              </p>
+              <h7>Arrival Reception</h7>
+              <p>
+                {{opportunity.logistics_info.arrival_reception}}
+              </p>
+            </div>
+          </div>
+          <div class="offer offer-radius offer-invert">
+            <div class="offer-content">
+              <h4 class="lead">Leadership Development</h4>
+              <h7>Learning Points</h7>
+              <p ng-bind-html="opportunity.role_info.learning_points | nl2br">
+              </p>
+              <h7>Required Preparation</h7>
+              <p ng-bind-html="opportunity.role_info.required_preparation | nl2br">
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
