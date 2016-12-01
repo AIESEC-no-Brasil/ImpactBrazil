@@ -43,7 +43,7 @@ function opportunitiesCtrl($scope,$state,$stateParams,$localStorage,Opportunitie
 				$scope.loading = false;
 				$scope.error = true;
 				$localStorage.token = null;
-				$state.reload();
+				$state.transitionTo($state.current, $stateParams, {reload: true, inherit: true, notify: true});
 		});
 	};
 
@@ -51,7 +51,7 @@ function opportunitiesCtrl($scope,$state,$stateParams,$localStorage,Opportunitie
 		AuthService.simple_token().then(function(token) {
 			if (token == null){ 
 				$localStorage.token = null;
-				$state.reload();
+				$state.transitionTo($state.current, $stateParams, {reload: true, inherit: true, notify: true});
 			} else {
 				$localStorage.token = token;
 			}
@@ -191,7 +191,7 @@ function OpportunityDetailCtrl($scope,$state,$stateParams,$localStorage,Opportun
 			},function(response) {
 				console.log(response);
 				$localStorage.$reset();
-				$state.reload();
+				$state.transitionTo($state.current, $stateParams, {reload: true, inherit: true, notify: true});
 			});
 	}
 };
