@@ -31,9 +31,9 @@ function OpportunitiesService($filter,$http) {
 			'application[person_id]':person_id,
 			'application[gt_answer]':gt_answer,
 		}
-		url = 'https://gis-api.aiesec.org/v2/applications.json?access_token=' + token 
+		apply_url = 'https://gis-api.aiesec.org/v2/applications.json?access_token=' + token 
 					+'&application[opportunity_id]='+opportunity_id
-		return $http.post(url,param);
+		return $http.post(apply_url,param);
 	}
 }
 
