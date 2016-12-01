@@ -31,7 +31,9 @@ function OpportunitiesService($filter,$http) {
 			'application[person_id]':person_id,
 			'application[gt_answer]':gt_answer,
 		}
-		return $http.post('https://gis-api.aiesec.org/v2/applications.json',{params:param});
+		url = 'https://gis-api.aiesec.org/v2/applications.json?access_token=' + token 
+					+'&application[opportunity_id]='+opportunity_id
+		return $http.post(url,param);
 	}
 }
 
@@ -51,8 +53,12 @@ function AuthService($http) {
 
 	}
 
-	this.sign_in = function () {
+	this.sign_in = function (email,password) {
+		return $http.post('http://bazicon.aiesec.org.br/login_opportunities',{'email':email,'password':password},{})
+	}
 
+	this.my = function(token) {	
+		return $http.get('https://gis-api.aiesec.org/v2/current_person.json',{params:{'access_token':token,'with':'missing_profile_fields'}},{})
 	}
 }
 

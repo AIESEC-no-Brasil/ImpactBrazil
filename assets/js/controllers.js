@@ -144,34 +144,115 @@ function opportunitiesCtrl($scope,$state,$stateParams,$localStorage,Opportunitie
 
 function OpportunityDetailCtrl($scope,$state,$stateParams,$localStorage,OpportunitiesService,AuthService) {
 	$scope.opportunity = null;
+	$scope.loading = false;
 
-	if ($localStorage.token==null) {
+	if($localStorage.login_token != null) {
+		load_opportunity($localStorage.login_token);
+	} else if ($localStorage.token != null) {
+		load_opportunity($localStorage.token);
+	} else {
 		AuthService.simple_token().then(function(token) {
-			if (token == null){ 
+			if (token == null){
 				$localStorage.token = null;
 				$state.reload();
 			} else {
 				$localStorage.token = token;
 			}
-			load_opportunity();
+			load_opportunity($localStorage.token);
 		});
-	} else {
-		load_opportunity();
 	}
 
-	function load_opportunity() {
-		console.log($stateParams);
-		OpportunitiesService.find($localStorage.token,$stateParams.id).then(
+	$scope.apply = function () {
+		$scope.loading = true;
+		if($localStorage.login_token != null) {
+			OpportunitiesService.apply($localStorage.login_token,$localStorage.my.id,$stateParams.id).then(
+				function(response) {
+					console.log(response);
+					$scope.opportunity.applied_to = true;
+					$scope.loading = false;
+				},function(response) {
+					console.log(response);
+					$scope.loading = false;
+				});
+		} else {
+			$state.go('sign_in',{'applyTo':$stateParams.id});
+		}
+	};
+
+	$scope.can_apply = function() {
+		return $localStorage.missing_profile_fields == null || $localStorage.missing_profile_fields.length == 0;
+	}
+
+	function load_opportunity(token) {
+		OpportunitiesService.find(token,$stateParams.id).then(
 			function(response) {
 				console.log(response);
 				$scope.opportunity = response.data;
 			},function(response) {
 				console.log(response);
+				$localStorage.$reset();
+				$state.reload();
 			});
 	}
-}
+};
+
+function AuthCtrl($scope,$state,$location,$stateParams,$localStorage,OpportunitiesService,AuthService,$http) {
+	$scope.storage = $localStorage;
+	$scope.loading = false;
+	$scope.message = '';
+
+	$scope.login = function() {
+		$scope.loading = true;
+		if ($scope.email != undefined && $scope.password != undefined) {
+			AuthService.sign_in($scope.email,$scope.password).then(
+				function successCallback(response) {
+					if (response.data['token'] == null) {
+						$scope.message = 'Email or Password incorrect';
+					} else {
+						$localStorage.login_token = response.data['token'].match(/access_token:.*,token/)[0].replace('access_token:','').replace(',token','');
+
+						AuthService.my($localStorage.login_token).then(
+							function(response){
+								console.log(response);
+								$localStorage.my = response.data.person;
+								$localStorage.missing_profile_fields = response.data.missing_profile_fields;
+							},function(response){
+								console.log(response);
+							}).then(function() {
+								console.log($localStorage.token);
+								if ($stateParams.applyTo) {
+									console.log($stateParams);
+									OpportunitiesService.apply($localStorage.login_token,$localStorage.my.id,parseInt($stateParams.applyTo)).then(
+										function(response) {
+											console.log(response);
+										},function(response) {
+											console.log(response);
+										}).then(function() {
+											$state.go('index.opportunity',{'id':parseInt($stateParams.applyTo)});
+										});
+								} else {
+									$state.go('index.main');
+								}
+							});
+					}
+					$scope.loading = false;
+				}, function errorCallback(response) {
+					$scope.message = 'Something is incorrect, try again';
+					$scope.loading = false;
+				});
+		} else {
+			$scope.loading = false;
+			$scope.message = 'You need to fill your email and password';
+		}
+	}
+
+	$scope.sign_out = function() {
+		$localStorage.$reset();
+	}
+};
 
 angular
     .module('impactbrazil')
     .controller('opportunitiesCtrl', opportunitiesCtrl)
-    .controller('OpportunityDetailCtrl', OpportunityDetailCtrl);
+    .controller('OpportunityDetailCtrl', OpportunityDetailCtrl)
+    .controller('AuthCtrl', AuthCtrl);

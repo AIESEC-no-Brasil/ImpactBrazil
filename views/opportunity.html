@@ -1,6 +1,6 @@
 <div class="section block-primary position-r align-c-xs-max">
     <div id="particles-js" class="site-bg">
-      <div class="site-bg-img" style="background-image: url({{opportunity.cover_photo_urls}})"></div>
+      <div class="site-bg-img" style="background-image: url({{opportunity.cover_photo_urls}}); background-attachment: fixed;"></div>
       <div class="site-bg-overlay" style="background-color: rgba(0, 0, 0, 0.6);"></div>
       <div class="site-bg-effect layer" data-depth=".30"></div>
       <canvas class="site-bg-canvas layer" data-depth=".30" particles></canvas>
@@ -29,8 +29,16 @@
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
           <div class="offer offer-radius offer-invert">
             <div class="offer-content align-c">
+              <h7 ng-show="!can_apply()">You need to fill out your profile to apply</h7>
+              <a class="btn btn-invert btn-block" ng-show="!can_apply()" href="https://opportunities.aiesec.org/profile" target="_blank">Fill Out</a>
+              <button class="btn btn-invert btn-block" ng-show="can_apply() && !opportunity.applied_to && !loading" ng-click="apply()">Apply</button>
+              <button class="btn btn-invert btn-block disabled" ng-show="opportunity.applied_to">Applied</button>
+              <button class="btn btn-invert btn-block disabled" ng-show="loading">
+                <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                </svg>
+              </button>
               <h7>Apply until {{opportunity.applications_close_date | date : 'fullDate'}}</h7>
-              <button class="btn btn-invert btn-block">Apply</button>
             </div>
           </div>
           <div class="offer offer-radius offer-invert">

@@ -56,6 +56,15 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             templateUrl: "views/opportunity.html",
             controller: 'OpportunityDetailCtrl'
         })
+        .state('index.profile', {
+            url: "/profile",
+            templateUrl: "views/my_profile.html",
+        })
+        .state('sign_in', {
+            url: "/sign_in?applyTo",
+            templateUrl: "views/sign_in.html",
+            controller: 'AuthCtrl'
+        })
 }
 angular
     .module('impactbrazil').filter("nl2br", function($filter) {

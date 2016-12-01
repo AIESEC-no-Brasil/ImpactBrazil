@@ -368,3 +368,44 @@
   font-family: 'Lato', sans-serif;
   font-size: 4em;
 }
+
+/* Login page */
+
+.login input[type="email"], .login input[type="text"],.login input[type="password"] {
+    width: 100%;
+    margin: 0;
+    padding: 5px 10px;
+    background: 0;
+    border: 0;
+    border-bottom: 1px solid #FFFFFF;
+    outline: 0;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+    outline: 0;
+}
+
+.login ::-webkit-input-placeholder, .login ::-moz-placeholder, .login :-ms-input-placeholder , .login :-moz-placeholder { /* Chrome/Opera/Safari */
+  color: white;
+}
+.login a {
+  color: #DDD;
+}
+
+.login input::-webkit-input-placeholder { /* Chrome */
+  color: white !important;
+}
+input:-ms-input-placeholder { /* IE 10+ */
+  color: red;
+}
+input::-moz-placeholder { /* Firefox 19+ */
+  color: red;
+  opacity: 1;
+}
+input:-moz-placeholder { /* Firefox 4 - 18 */
+  color: red;
+  opacity: 1;
+}

@@ -1,0 +1,43 @@
+<div class="section login" style="background-image: url('assets/img/bg/ge-bg-img.jpg');
+    background-size: cover; background-attachment: fixed;">
+    <div class="container middle-box text-center loginscreen animated fadeInDown">
+        <div id="particles-js" class="site-bg">
+          <div class="site-bg-overlay" style="background-color: rgba(0, 0, 0, 0.7);"></div>
+          <div class="site-bg-effect layer" data-depth=".30"></div>
+          <canvas class="site-bg-canvas layer" data-depth=".30" particles></canvas>
+        </div> <!-- .site-bg -->
+        <div class="col-xs-1 col-lg-3"></div>
+        <div class="col-xs-10 col-lg-6" style="color: white">
+            <div>
+                <img src="assets/img/stamp.png" style="width:40%;height:40%;" alt="">
+            </div>
+            <p>
+            </p>
+            <h3>Come to ImpactBrazil</h3>
+            <p>Login in. To see it in action.</p>
+            <form class="m-t" role="form">
+                <div class="alert alert-danger" ng-show="message != ''">
+                    {{message}}
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email" required="true" ng-model="email">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required="true" ng-model="password">
+                </div>
+                <div  ng-show="loading == true">
+                  <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                  </svg>
+                </div>
+                <button class="btn btn-invert btn-outline block full-width m-b" ng-click="login()" ng-show="loading != true">
+                    Login
+                </button>
+
+                <a href="https://auth.aiesec.org/users/password/new" target="_blank"><small>Forgot password?</small></a><br/>
+                <a href="https://auth.aiesec.org/users/sign_in" target="_blank"><small>Create an account</small></a>
+            </form>
+            <p class="m-t"> <small>Powerd by AIESEC in Brazil</small></p>
+        </div>
+    </div>
+</div>
