@@ -1,0 +1,66 @@
+<div id="portal" class="container section">
+	<div class="row">
+    	<div class="col-xs-12">
+
+			<div style="margin-bottom: 15px;">
+				<a class="btn btn-invert btn-lg" href="#/index/profile/edit">Edit profile</a>
+			</div>
+  			<div class="col-inner align-c applications">
+  				<h1>My Applications</h1>
+				<div class="row">
+					<div class="container" ng-show="loading">
+					  <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+					    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+					  </svg>
+					</div>
+				    <div class="col-lg-6 col-sm-12 opportunity" ng-repeat="application in list track by $index">
+						<div class="pricing-table m-t-0-xs-max">
+							<div class="pricing-table-header block-gt">
+							    <div class="site-bg">
+							      <div class="site-bg-img" style="background-image: url('assets/img/bg/bg2.JPG')"></div>
+							      <div class="site-bg-overlay" style="background-color: rgba(0, 0, 0, 0.7);"></div>
+							    </div> 
+								<div class="row">
+									<div class="col-xs-12">
+							    		<div class="col-inner">
+											<h5 class="pricing-table-caption">Applyed on {{application.created_at | date : ' MMMM d, y'}}</h5>
+											<h3 class="pricing-table-caption">{{application.opportunity.title | limitTo:24}}{{application.opportunity.title.length > 24 ? '...' : ''}}</h3>
+											<h6 class="pricing-table-caption">Starts between Jul 18, 2016 to Jan 18, 2017</h6>
+											<h6 class="pricing-table-caption">{{application.opportunity.office.full_name | limitTo:30}}{{application.opportunity.office.full_name.length > 30 ? '...' : ''}}</h6>
+
+											<span class="label label-default" ng-show="is_open(application.status)">Applied</span>
+											<span class="label label-default" ng-show="is_accepted(application.status)">Accepted</span>
+											<span class="label label-info" ng-show="is_in_progress(application.status)">In Progress</span>
+											<span class="label label-primary" ng-show="is_accepted(application.status)">Approved</span>
+											<span class="label label-warning" ng-show="is_realized(application.status)">Realizing</span>
+											<span class="label label-success" ng-show="is_completed(application.status)">Completed</span>
+											<span class="label label-default" ng-show="is_withdrawn(application.status)">Withdrawn</span>
+											<span class="label label-default" ng-show="is_rejected(application.status)">Rejected</span>
+											<span class="label label-default" ng-show="is_declined(application.status)">Declined</span>
+								        </div>
+						     		</div>
+								</div>
+							</div>
+							<div class="pricing-table-footer block-light">
+								<div class="btn-group btn-group-sm" role="group" ng-show="!application.loading">
+									<button type="button" class="btn btn-invert" href="#" ng-show="application.permissions.can_be_matched" ng-click="accept(application)">Accept</button>
+									<button type="button" class="btn btn-invert disabled" href="#" ng-show="application.permissions.can_sign_an">Sign AN</button>
+									<button type="button" class="btn btn-invert" href="#" ng-show="application.permissions.can_be_withdrawn" ng-click="withdrawn(application)">Withdraw</button>
+									<button type="button" class="btn btn-invert disabled" href="#" ng-show="application.permissions.should_complete_ldm">Fill LDA</button>
+									<button type="button" class="btn btn-invert disabled" href="#" ng-show="application.permissions.should_complete_nps">Fill NPS</button>
+
+									<h5 ng-show="no_action(application.permissions)">No virtual interaction here for a while (:</h5>
+								</div>
+								<div ng-show="application.loading">
+									<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+										<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+									</svg>
+								</div>
+							</div>
+						</div> <!-- .pricing-table -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -196,7 +196,7 @@ function OpportunityDetailCtrl($scope,$state,$stateParams,$localStorage,Opportun
 	}
 };
 
-function AuthCtrl($scope,$state,$location,$stateParams,$localStorage,OpportunitiesService,AuthService,$http) {
+function AuthCtrl($scope,$state,$location,$stateParams,$localStorage,OpportunitiesService,AuthService) {
 	$scope.storage = $localStorage;
 	$scope.loading = false;
 	$scope.message = '';
@@ -249,10 +249,349 @@ function AuthCtrl($scope,$state,$location,$stateParams,$localStorage,Opportuniti
 	$scope.sign_out = function() {
 		$localStorage.$reset();
 	}
+
+    $scope.isActive = function (viewLocation) { 
+        return viewLocation === $location.path();
+    };
 };
+
+function ApplicationsCtrl($scope,$state,$stateParams,$localStorage,ApplicationService) {
+	$scope.list = [];
+	$scope.loading = true;
+
+	if($localStorage.login_token != null) {
+		load_applications($localStorage.login_token);
+	} else {
+		$state.go('sign_in',{'redirectTo':'index.profile.applications'});
+	}
+
+	function load_applications(token) {
+		ApplicationService.my_applications(token,$localStorage.my.id).then(
+			function(response) {
+				console.log(response);
+				$scope.list = response.data.data;
+				$scope.loading = false;
+			},function(response) {
+				console.log(response);
+				$localStorage.$reset();
+				$state.go('sign_in',{'redirectTo':'index.profile.applications'});
+			});
+	}
+
+	$scope.accept = function(application) {
+		application.loading = true;
+		ApplicationService.accept($localStorage.login_token,application.id).then(
+			function(response) {
+				console.log(response);
+				$state.go('index.profile.applications');
+			},function(response) {
+				console.log(response);
+				$scope.application.loading = false;
+			});
+	}
+
+	$scope.withdrawn = function(application) {
+		console.log(application);
+		application.loading = true;
+		ApplicationService.withdrawn($localStorage.login_token,application.id).then(
+			function(response) {
+				console.log(response);
+				$scope.loading = true;
+				load_applications($localStorage.login_token);
+			},function(response) {
+				console.log(response);
+				$scope.application.loading = false;
+			});
+	}
+
+	//matched accepted approved withdrawn realized completed rejected declined
+	$scope.is_open = function(status) {
+		return status == 'open' ||  status == 'matched' || status == 'accepted' ||
+			status == 'approved' || status == 'realized' || status == 'completed'; 
+	}
+
+	$scope.is_accepted = function(status) {
+		return status == 'matched' || status == 'accepted' ||
+			status == 'approved' || status == 'realized' || status == 'completed'; 
+	}
+
+	$scope.is_in_progress = function(status) {
+		return status == 'accepted' || status == 'approved' || 
+			status == 'realized' || status == 'completed'; 
+	}
+
+	$scope.is_approved = function(status) {
+		return status == 'approved' || status == 'realized' || status == 'completed'; 
+	}
+
+	$scope.is_realized = function(status) {
+		return status == 'realized' || status == 'completed'; 
+	}
+
+	$scope.is_completed = function(status) {
+		return status == 'completed';
+	}
+
+	$scope.is_withdrawn = function(status) {
+		return status == 'withdrawn';
+	}
+
+	$scope.is_rejected = function(status) {
+		return status == 'rejected';
+	}
+
+	$scope.is_declined = function(status) {
+		return status == 'declined';
+	}
+
+	$scope.no_action = function(permissions) {
+		return !permissions.can_be_matched && !permissions.can_sign_an && !permissions.can_be_withdrawn &&
+			!permissions.should_complete_ldm && !permissions.should_complete_nps;
+	}
+}
+
+function EditProfileCtrl($scope,$state,$stateParams,$localStorage,AuthService,ListsService,ProfileService) {
+	$scope.my = null;
+	$scope.loading = true;
+	$scope.lists = null;
+	$scope.people = [{name:'Luan',email:'luan@',id:1},{name:'hahhaha',email:'djnaskjndj',id:2}];
+	$scope.selected = null;
+	$scope.selected_skill = {selectedItems : []};
+	$scope.selected_skill_level = '0';
+	$scope.skills = [];
+	$scope.selected_language = [];
+	$scope.selected_language_level = '0';
+	$scope.languages = [];
+	$scope.selected_background = [];
+	$scope.backgrounds = [];
+	$scope.selected_work_field = [];
+	$scope.work_fields = [];
+	$scope.academic_xp = {backgrounds:[]};
+	$scope.academic_backgrounds = [];
+	$scope.academic_experiences = [];
+	$scope.professional_xp = {industries:[],skills:[],backgrounds:[],work_fields:[]};
+	$scope.professional_experiences = [];
+
+	if($localStorage.login_token != null) {
+		load_profile($localStorage.login_token);
+		load_lists($localStorage.login_token);
+	} else {
+		$state.go('sign_in',{'redirectTo':'index.profile.edit'});
+	}
+
+	function resolve_date(str) {
+		date = str.slice(0, 10).split('-');
+		return new Date(date[0],date[1]-1,date[2]);
+	}
+
+	function load_profile(token) {
+		AuthService.profile(token,$localStorage.my.id).then(
+			function(response) {
+				console.log(response);
+				$scope.my = response.data;
+				$scope.my.dob = resolve_date($scope.my.dob);
+				$scope.my.profile.earliest_start_date = resolve_date($scope.my.profile.earliest_start_date);
+				$scope.my.profile.latest_end_date = resolve_date($scope.my.profile.latest_end_date);
+				$scope.loading = false;
+			},function(response) {
+				console.log(response);
+				$localStorage.$reset();
+				$state.go('sign_in',{'redirectTo':'index.profile.edit'});
+			});
+	}
+
+	function load_lists(token) {
+		ListsService.get_lists(token).then(
+			function (response) {
+				console.log(response);
+				$scope.lists = response.data;
+			},function (response) {
+				console.log(response);
+			});
+	}
+
+	$scope.edit = function() {
+		$scope.loading = true;
+		profile = populte($scope.my);
+		ProfileService.edit($localStorage.login_token,$scope.my.id,profile).then(
+			function (response) {
+				console.log(response);
+				load_profile($localStorage.login_token);
+				$scope.loading = false;
+			},function (response) {
+				console.log(response);
+				$scope.loading = false;
+			});
+	}
+
+	$scope.add_with_level = function(item,level,list) {
+		if(list.find(function(i){return i.id == item.id}) == undefined){
+			temp = {};
+			temp.name = item.name;
+			temp.id = item.id;
+			temp.level = level;
+			list.push(temp);
+		}
+	}
+
+	$scope.add_to_list = function(item,list) {
+		if(list.find(function(i){return i.id == item.id}) == undefined){
+			temp = {};
+			temp.name = item.name;
+			temp.id = item.id;
+			list.push(temp);
+		}
+	}
+
+	$scope.remove_from_list = function(element,list) {
+		list.splice(list.indexOf(element),1);
+	}
+
+	$scope.save_academic_xp = function(xp,xp_list) {
+		xp.start_date = convert_string(xp.start_date);
+		xp.end_date = convert_string(xp.end_date);
+		att_xp(xp,xp_list);
+
+		xp.study_level = xp.experience_level.id;
+		xp.backgrounds = objects2ids(xp.backgrounds);
+		ProfileService.create_academic_xp($localStorage.login_token,xp,$scope.my.id).then(
+			function(response) {
+				console.log(response);
+				xp.id = response.data.id;
+			},function(response) {
+				console.log(response);
+			});
+		$scope.cancel_academic_xp();
+	}
+
+	$scope.save_professional_xp = function(xp,xp_list) {
+		xp.start_date = convert_string(xp.start_date);
+		xp.end_date = convert_string(xp.end_date);
+		att_xp(xp,xp_list);
+
+		xp.work_type = xp.experience_level.id;
+		xp.industries = objects2ids(xp.industries);
+		xp.skills = objects2ids(xp.skills);
+		xp.work_fields = objects2ids(xp.work_fields);
+		ProfileService.create_professional_xp($localStorage.login_token,xp,$scope.my.id).then(
+			function(response) {
+				console.log(response);
+				xp.id = response.data.id;
+			},function(response) {
+				console.log(response);
+			});
+		$scope.cancel_professional_xp();
+	}
+
+	$scope.edit_professional_xp = function(element) {
+		$scope.professional_xp = element;
+		$scope.professional_xp.start_date = resolve_date($scope.professional_xp.start_date);
+		$scope.professional_xp.end_date = resolve_date($scope.professional_xp.end_date);
+	}
+
+	$scope.edit_academic_xp = function(element) {
+		$scope.academic_xp = element;
+		$scope.academic_xp.start_date = resolve_date($scope.academic_xp.start_date);
+		$scope.academic_xp.end_date = resolve_date($scope.academic_xp.end_date);
+	}
+
+	$scope.cancel_academic_xp = function() {
+		$scope.academic_xp = {backgrounds:[]};
+	}
+
+	$scope.cancel_professional_xp = function() {
+		$scope.professional_xp = {industries:[],skills:[],backgrounds:[],work_fields:[]};;
+	}
+
+	$scope.remove_academic_xp = function(xp,list) {
+		list.splice(list.indexOf(xp),1);
+		ProfileService.remove_academic_xp($localStorage.login_token,xp,$scope.my.id).then(
+			function(response) {
+				console.log(response);
+			},function(response) {
+				console.log(response);
+			});
+	}
+
+	$scope.remove_professional_xp = function(xp,list) {
+		list.splice(list.indexOf(xp),1);
+		ProfileService.remove_professional_xp($localStorage.login_token,xp,$scope.my.id).then(
+			function(response) {
+				console.log(response);
+			},function(response) {
+				console.log(response);
+			});
+	}
+
+	$scope.translate_level = function(level) {
+		switch(parseInt(level)){
+			case 0:
+				return 'Beginner';
+			case 1:
+				return 'Intermediate';
+			case 2:
+				return 'Advanced';
+			case 3:
+				return 'Expert';
+		}
+	}
+
+	function objects2ids(objs) {
+		list = [];
+		for (var i = 0;i < objs.length;i++) {
+			list.push(objs[i].id);
+		}
+		return list;
+	}
+
+	function convert_string(element) {
+		if (typeof element === 'string' || element instanceof String) {
+			return element;
+		}
+		return element.toISOString();
+	}
+
+	function att_xp(xp,xp_list) {
+		if(xp.id != null) {
+			id = null;
+			for (var i = 0; i < xp_list.length; i++) {
+			    if (xp.id == xp_list[i].id) {xp_list[i] = xp;}
+			}
+		} else {
+			xp_list.push(xp);
+		}
+	}
+
+	function populte(my){
+		profile = {};
+		profile.address_info = my.address_info;
+		profile.contact_info = my.contact_info;
+		profile.dob = my.dob;
+		profile.email = my.email;
+		profile.first_name = my.first_name;
+		profile.last_name = my.last_name;
+		profile.gender = my.gender;
+		profile.profile = {};
+		profile.profile.duration_min = $scope.my.profile.duration_min;
+		profile.profile.duration_max = $scope.my.profile.duration_max;
+		profile.profile.dura = $scope.my.profile.earliest_start_date;
+		profile.profile.latest_end_date = $scope.my.profile.latest_end_date;
+		profile.profile.issues = objects2ids(my.profile.issues);
+		profile.profile.backgrounds = objects2ids(my.profile.backgrounds);
+		profile.profile.nationalities = objects2ids(my.profile.nationalities);
+		profile.profile.preferred_locations = objects2ids(my.profile.preferred_locations_info);
+		profile.profile.preferred_organisations = objects2ids(my.profile.preferred_organisations);
+		profile.profile.work_fields = objects2ids(my.profile.work_fields);
+		profile.profile.languages = my.profile.languages;
+		profile.profile.skills = my.profile.skills
+		return profile;
+	}
+}
 
 angular
     .module('impactbrazil')
     .controller('opportunitiesCtrl', opportunitiesCtrl)
     .controller('OpportunityDetailCtrl', OpportunityDetailCtrl)
+    .controller('ApplicationsCtrl', ApplicationsCtrl)
+    .controller('EditProfileCtrl', EditProfileCtrl)
     .controller('AuthCtrl', AuthCtrl);

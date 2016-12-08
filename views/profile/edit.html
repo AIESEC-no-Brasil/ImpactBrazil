@@ -1,0 +1,441 @@
+<div class="container section">
+  <div class="row">
+    <div class="col-xs-12">
+      <div style="margin-bottom: 15px;">
+        <a class="btn btn-invert btn-lg" href="#/index/profile/applications">My Applications</a>
+      </div>
+      <div ng-show="loading" class="center-block align-c">
+        <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+          <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+      </div>
+      <div class="panel panel-default" ng-show="!loading">
+        <div class="panel-heading">Personal Data</div>
+        <div class="panel-body">
+          <div class='form-row'>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class='control-label'>First Name</label>
+              <input class='form-control' size='4' type='text' ng-model="my.first_name">
+            </div>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class='control-label'>Last Name</label>
+              <input class='form-control' size='4' type='text' ng-model="my.last_name">
+            </div>
+          </div>
+          <div class='form-row'>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class="checkbox-inline">
+                <input type='radio' ng-model="my.gender" value="male"> Male
+              </label>
+              <label class="checkbox-inline">
+                <input type='radio' ng-model="my.gender" value="female"> Female
+              </label>
+            </div>
+            <div class='col-xs-12 col-lg-3 form-group required'>
+              <label class='control-label'>Birthday</label>
+              <input class='form-control' type='date' ng-model="my.dob" placeholder="yyyy-MM-dd">
+            </div>
+          </div>
+          <div class='form-row'>
+            <div class='col-xs-12 col-lg-4 form-group required'>
+              <label class='control-label'>Email</label>
+              <input class='form-control' size='4' type='text' ng-model="my.contact_info.email">
+            </div>
+            <div class='col-xs-12 col-lg-4 form-group required'>
+              <label class='control-label'>Phone</label>
+              <input class='form-control' size='4' type='text' ng-model="my.contact_info.phone">
+            </div>
+            <div class='col-xs-12 col-lg-4 form-group'>
+              <label class='control-label'>Facebook</label>
+              <input class='form-control' size='4' type='text' ng-model="my.contact_info.facebook">
+            </div>
+          </div>
+          <div class='form-row'>
+            <div class='col-xs-12 col-lg-4 form-group required'>
+              <label class='control-label'>Address</label>
+              <input class='form-control' size='4' type='text' ng-model="my.address_info.address_1">
+            </div>
+            <div class='col-xs-12 col-lg-4 form-group required'>
+              <label class='control-label'>City</label>
+              <input class='form-control' size='4' type='text' ng-model="my.address_info.city">
+            </div>
+            <div class='col-xs-12 col-lg-4 form-group required'>
+              <label class='control-label'>Country</label>
+              <input class='form-control' size='4' type='text' ng-model="my.address_info.country">
+            </div>
+          </div>
+          <div class='form-row'>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class='control-label'>Earliest start date</label>
+              <input class='form-control' type='date' ng-model="my.profile.earliest_start_date" placeholder="yyyy-MM-dd">
+            </div>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class='control-label'>Lastest end date</label>
+              <input class='form-control' type='date' ng-model="my.profile.latest_end_date" placeholder="yyyy-MM-dd">
+            </div>
+          </div>
+          <div class='form-row'>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class='control-label'>Shortest duration</label>
+              <input class='form-control' type='number' min="6" max="78" ng-model="my.profile.duration_min">
+            </div>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class='control-label'>Longest duration</label>
+              <input class='form-control' type='number' min="6" max="78" ng-model="my.profile.duration_max">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default" ng-show="!loading">
+        <div class="panel-heading">Nationalities</div>
+        <div class="panel-body">
+          <div class='col-xs-12 col-lg-3 form-group multiple-form-group input-group required'>
+            <label class='control-label'></label>
+            <select class="form-control" ng-model="selected_nationality"
+              ng-options="option.name for option in lists.nationalities track by option.id"
+              ng-change="add_to_list(selected_nationality,my.profile.nationalities)">
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-12" ng-repeat="nationality in my.profile.nationalities">
+            <div class="form-group multiple-form-group input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger" ng-click="remove_from_list(nationality,my.profile.nationalities)">-</button>
+              </div>
+              <input type="text" class="form-control" ng-model="nationality.name" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show="!loading">
+        <div class="panel-heading">Skills</div>
+        <div class="panel-body">
+          <div class='col-xs-12 col-lg-5 form-group required'>
+            <select class="form-control" ng-model="selected_skill"
+              ng-options="option.name for option in lists.skills track by option.id">
+            </select>
+          </div>
+
+          <div class='col-xs-12 col-lg-3 form-group required'>
+            <select class="form-control" ng-model="selected_skill_level" required="true">
+              <option value="0">Beginner</option>
+              <option value="1">Intermediate</option>
+              <option value="2">Advanced</option>
+              <option value="3">Expert</option>
+            </select>
+          </div>
+
+          <div class='col-xs-12 col-lg-2 form-group required'>
+            <button type="button" class="btn btn-success btn-add" ng-click="add_with_level(selected_skill,selected_skill_level,my.profile.skills)">Add</button>
+          </div>
+
+          <div class="col-lg-4 col-md-12" ng-repeat="skill in my.profile.skills">
+            <div class="form-group multiple-form-group input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger" ng-click="remove_from_list(skill,my.profile.skills)">-</button>
+              </div>
+              <input type="text" class="form-control" ng-model="skill.name" disabled>
+              <div class="input-group-addon">{{translate_level(skill.level)}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show="!loading">
+        <div class="panel-heading">Languages</div>
+        <div class="panel-body">
+          <div class='col-xs-12 col-lg-5 form-group required'>
+            <select class="form-control" ng-model="selected_language"
+              ng-options="option.name for option in lists.languages track by option.id">
+            </select>
+          </div>
+
+          <div class='col-xs-12 col-lg-3 form-group required'>
+            <select class="form-control" ng-model="selected_language_level" required="true">
+              <option value="0">Beginner</option>
+              <option value="1">Intermediate</option>
+              <option value="2">Advanced</option>
+              <option value="3">Expert</option>
+            </select>
+          </div>
+
+          <div class='col-xs-12 col-lg-2 form-group required'>
+            <button type="button" class="btn btn-success btn-add" ng-click="add_with_level(selected_language,selected_language_level,my.profile.languages)">Add</button>
+          </div>
+
+          <div class="col-lg-4 col-md-12" ng-repeat="language in my.profile.languages">
+            <div class="form-group multiple-form-group input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger" ng-click="remove_from_list(language,my.profile.languages)">-</button>
+              </div>
+              <input type="text" class="form-control" ng-model="language.name" disabled>
+              <div class="input-group-addon">{{translate_level(language.level)}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show="!loading">
+        <div class="panel-heading">Backgrounds</div>
+        <div class="panel-body">
+          <div class='col-xs-12 col-lg-5 form-group multiple-form-group input-group  required'>
+            <select class="form-control" ng-model="selected_background"
+              ng-options="option.name for option in lists.backgrounds track by option.id"
+              ng-change="add_to_list(selected_background,my.profile.backgrounds)">
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-12" ng-repeat="background in my.profile.backgrounds">
+            <div class="form-group multiple-form-group input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger" ng-click="remove_from_list(background,my.profile.backgrounds)">-</button>
+              </div>
+              <input type="text" class="form-control" ng-model="background.name" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show="!loading">
+        <div class="panel-heading">Issues</div>
+        <div class="panel-body">
+          <div class='col-xs-12 col-lg-5 form-group multiple-form-group input-group  required'>
+            <select class="form-control" ng-model="selected_issue"
+              ng-options="option.name for option in lists.issues track by option.id"
+              ng-change="add_to_list(selected_issue,my.profile.issues)">
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-12" ng-repeat="issue in my.profile.issues">
+            <div class="form-group multiple-form-group input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger" ng-click="remove_from_list(issue,my.profile.issues)">-</button>
+              </div>
+              <input type="text" class="form-control" ng-model="issue.name" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show="!loading">
+        <div class="panel-heading">Where you prefer to go</div>
+        <div class="panel-body">
+          <div class='col-xs-12 col-lg-5 form-group multiple-form-group input-group  required'>
+            <select class="form-control" ng-model="selected_countries"
+              ng-options="option.name for option in lists.home_mcs track by option.id"
+              ng-change="add_to_list(selected_countries,my.profile.preferred_locations_info)">
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-12" ng-repeat="country in my.profile.preferred_locations_info">
+            <div class="form-group multiple-form-group input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger" ng-click="remove_from_list(country,my.profile.preferred_locations_info)">-</button>
+              </div>
+              <input type="text" class="form-control" ng-model="country.name" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show="!loading">
+        <div class="panel-heading">Interesting Work Fields</div>
+        <div class="panel-body">
+          <div class='col-xs-12 col-lg-5 form-group multiple-form-group input-group  required'>
+            <select class="form-control" ng-model="selected_work_field"
+              ng-options="option.name for option in lists.work_fields track by option.id"
+              ng-change="add_to_list(selected_work_field,my.profile.work_fields)">
+            </select>
+          </div>
+
+          <div class="col-lg-4 col-md-12" ng-repeat="work_field in my.profile.work_fields">
+            <div class="form-group multiple-form-group input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger" ng-click="remove_from_list(work_field,my.profile.work_fields)">-</button>
+              </div>
+              <input type="text" class="form-control" ng-model="work_field.name" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show="!loading">
+        <div class="panel-heading">Academic Experience</div>
+        <div class="panel-body">
+          <div class='form-row'>
+            <div class='col-xs-12 col-lg-8 form-group required'>
+              <label class='control-label'>University</label>
+              <input class='form-control' type='text' ng-model="academic_xp.organisation_name">
+            </div>
+            <div class='col-xs-12 col-lg-4 form-group required'>
+              <label class='control-label'>Country</label>
+              <input class='form-control' type='text' ng-model="academic_xp.country">
+            </div>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class='control-label'>Started at</label>
+              <input class='form-control' type='date' ng-model="academic_xp.start_date">
+            </div>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class='control-label'>Finish date</label>
+              <input class='form-control' type='date' ng-model="academic_xp.end_date">
+            </div>
+          </div>
+          <div class='form-row'>
+            <div class='col-xs-12 col-lg-12 form-group required'>
+              <label class='control-label'>Description</label>
+              <textarea class='form-control' rows='2' type='textarea' placeholder="Tell me about your Academic Experience" ng-model="academic_xp.description"></textarea>
+            </div>
+
+            <div class='col-xs-12 col-lg-12 form-group required'>
+              <div class='col-lg-4'>
+                <label class='control-label'>Backgrounds</label>
+                <select class="form-control" ng-model="academic_xp.background"
+                  ng-options="option.name for option in lists.backgrounds track by option.id"
+                  ng-change="add_to_list(academic_xp.background,academic_xp.backgrounds)">
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12" ng-repeat="background in academic_xp.backgrounds">
+              <div class="form-group multiple-form-group input-group">
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-danger" ng-click="remove_from_list(background,academic_xp.backgrounds)">-</button>
+                </div>
+                <input type="text" class="form-control" ng-model="background.name" disabled>
+              </div>
+            </div>
+            <div class='col-xs-12 col-lg-12 form-group required'>
+              <div class='col-lg-4'>
+                <label class='control-label'>Study Level</label>
+                <select class="form-control" ng-model="academic_xp.experience_level"
+                  ng-options="option.name for option in lists.study_levels track by option.id">
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class='col-xs-12 col-lg-12 form-group required'>
+            <button type="button" class="btn btn-success btn-add" ng-click="save_academic_xp(academic_xp,my.academic_experiences)">Save Experience</button>
+            <button type="button" class="btn btn-danger btn-add" ng-click="cancel_academic_xp()">Cancel</button>
+          </div>
+
+          <div class="col-lg-4 col-md-12" ng-repeat="academic_experience in my.academic_experiences">
+            <div class="form-group multiple-form-group input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger" ng-click="remove_academic_xp(academic_experience,my.academic_experiences)">-</button>
+              </div>
+              <input type="text" class="form-control" ng-model="academic_experience.organisation_name" disabled>
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-warrning" ng-click="edit_academic_xp(academic_experience,my.academic_experiences)"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show="!loading">
+        <div class="panel-heading">Professional Experience</div>
+        <div class="panel-body">
+          <div class='form-row'>
+            <div class='col-xs-12 col-lg-8 form-group required'>
+              <label class='control-label'>Organization name</label>
+              <input class='form-control' type='text' ng-model="professional_xp.organisation_name">
+            </div>
+            <div class='col-xs-12 col-lg-4 form-group required'>
+              <label class='control-label'>Country</label>
+              <input class='form-control' type='text' ng-model="professional_xp.country" placeholder="Country you worked">
+            </div>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class='control-label'>Started at</label>
+              <input class='form-control' type='date' ng-model="professional_xp.start_date">
+            </div>
+            <div class='col-xs-12 col-lg-6 form-group required'>
+              <label class='control-label'>Finish date</label>
+              <input class='form-control' type='date' ng-model="professional_xp.end_date">
+            </div>
+            <div class='col-xs-12 col-lg-12 form-group required'>
+              <label class='control-label'>Job title</label>
+              <input class='form-control' type='text' ng-model="professional_xp.title">
+            </div>
+          </div>
+          <div class='form-row'>
+            <div class='col-xs-12 col-lg-12 form-group required'>
+              <label class='control-label'>Description</label>
+              <textarea class='form-control' rows='2' type='textarea' placeholder="Tell me about your Experience on this place" ng-model="professional_xp.description"></textarea>
+            </div>
+
+            <div class='col-xs-12 col-lg-12 form-group required'>
+              <div class='col-lg-4'>
+                <label class='control-label'>Industries the organization operates in</label>
+                <select class="form-control" ng-model="professional_xp.industry"
+                  ng-options="option.name for option in lists.industries track by option.id"
+                  ng-change="add_to_list(professional_xp.industry,professional_xp.industries)">
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12" ng-repeat="industry in professional_xp.industries">
+              <div class="form-group multiple-form-group input-group">
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-danger" ng-click="remove_from_list(industry,professional_xp.industries)">-</button>
+                </div>
+                <input type="text" class="form-control" ng-model="industry.name" disabled>
+              </div>
+            </div>
+            <div class='col-xs-12 col-lg-12 form-group required'>
+              <div class='col-lg-4'>
+                <label class='control-label'>Skills</label>
+                <select class="form-control" ng-model="professional_xp.skill"
+                  ng-options="option.name for option in lists.skills track by option.id"
+                  ng-change="add_to_list(professional_xp.skill,professional_xp.skills)">
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12" ng-repeat="skill in professional_xp.skills">
+              <div class="form-group multiple-form-group input-group">
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-danger" ng-click="remove_from_list(skill,professional_xp.skills)">-</button>
+                </div>
+                <input type="text" class="form-control" ng-model="skill.name" disabled>
+              </div>
+            </div>
+            <div class='col-xs-12 col-lg-12 form-group required'>
+              <div class='col-lg-4'>
+                <label class='control-label'>Work fields</label>
+                <select class="form-control" ng-model="professional_xp.work_field"
+                  ng-options="option.name for option in lists.work_fields track by option.id"
+                  ng-change="add_to_list(professional_xp.work_field,professional_xp.work_fields)">
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12" ng-repeat="work_field in professional_xp.work_fields">
+              <div class="form-group multiple-form-group input-group">
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-danger" ng-click="remove_from_list(work_field,professional_xp.work_fields)">-</button>
+                </div>
+                <input type="text" class="form-control" ng-model="work_field.name" disabled>
+              </div>
+            </div>
+            <div class='col-xs-12 col-lg-12 form-group required'>
+              <div class='col-lg-4'>
+                <label class='control-label'>Work type</label>
+                <select class="form-control" ng-model="professional_xp.experience_level" required="true"
+                  ng-options="option.name for option in lists.work_types track by option.id">
+                  <option value="">Select a work type</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class='col-xs-12 col-lg-12 form-group required'>
+            <button type="button" class="btn btn-success btn-add" ng-click="save_professional_xp(professional_xp,my.professional_experiences)">Save Experience</button>
+            <button type="button" class="btn btn-danger btn-add" ng-click="cancel_professional_xp()">Cancel</button>
+          </div>
+          <div class="col-lg-4 col-md-12" ng-repeat="professional_experience in my.professional_experiences">
+            <div class="form-group multiple-form-group input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-danger" ng-click="remove_professional_xp(professional_experience,my.professional_experiences)">-</button>
+              </div>
+              <input type="text" class="form-control" ng-model="professional_experience.organisation_name" disabled>
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-warrning" ng-click="edit_professional_xp(professional_experience)"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-wrap">
+          <button type="submit" class="btn btn-primary btn-block waves-effect waves-light" ng-click="edit()">Save</button>
+        </div>
+        <div class="form-notify"></div>
+      <!--Fingindo demência para Duration max, Duration min, XP start e and date, Preferred programee, visibility, Experience location, 
+          instagram, twitter, postcode e CV-->
+      </div>
+    </div>
+  </div>
+</div>

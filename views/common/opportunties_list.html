@@ -7,10 +7,20 @@
     <div class="col-xs-12 col-sm-3 {{($index >= 4) ? 'opportunity' : ''}}" ng-repeat="opportunity in list track by $index">
       <div class="pricing-table m-t-0-xs-max">
         <div class="pricing-table-header block-{{sdg_color($index % 4)}}">
-          <h5 class="pricing-table-caption">{{opportunity.title | limitTo:24}}</h5>
-          <h2 class="pricing-table-title">{{opportunity.duration_max}} weeks</h2>
-          <h6 class="pricing-table-caption">Starts on {{opportunity.applications_close_date | date:' MMMM d, y'}}</h6>
-          <h6 class="pricing-table-caption">on {{opportunity.location | limitTo:25}}</h6>
+          <div class="site-bg">
+            <div class="site-bg-img" style="background-image: url({{opportunity.cover_photo_urls}})"></div>
+            <div class="site-bg-overlay" style="background-color: rgba(0, 0, 0, 0.6);"></div>
+          </div> 
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="col-inner">
+                <h5 class="pricing-table-caption">{{opportunity.title | limitTo:23}}{{opportunity.title.length > 23 ? '...' : ''}}</h5>
+                <h2 class="pricing-table-title">{{opportunity.duration_max}} weeks</h2>
+                <h6 class="pricing-table-caption">Starts on {{opportunity.earliest_start_date | date:' MMMM d, y'}}</h6>
+                <h6 class="pricing-table-caption">on {{opportunity.location | limitTo:25}}{{opportunity.location.length > 25 ? '...' : ''}}</h6>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="pricing-table-footer block-light">
           <div class="btn-group btn-group-sm" role="group" aria-label="...">

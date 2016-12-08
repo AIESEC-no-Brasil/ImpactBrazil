@@ -57,11 +57,104 @@ function AuthService($http) {
 		return $http.post('http://bazicon.aiesec.org.br/login_opportunities',{'email':email,'password':password},{})
 	}
 
-	this.my = function(token) {	
+	this.my = function(token) {
 		return $http.get('https://gis-api.aiesec.org/v2/current_person.json',{params:{'access_token':token,'with':'missing_profile_fields'}},{})
+	}
+
+	this.profile = function(token,person_id) {
+		return $http.get('https://gis-api.aiesec.org/v2/people/'+person_id,{params:{'access_token':token}})
+	}
+}
+
+function ApplicationService($http) {
+	var url = 'https://gis-api.aiesec.org/v2/';
+
+	this.my_applications = function(token,person_id) {
+		param = {
+			'access_token':token,
+			'per_page':100,
+		}
+		return $http.get(url+'people/'+person_id+'/applications',{params:param},{})
+	}
+
+	this.withdrawn = function(token,application_id) {
+		param = {
+			'access_token':token,
+			'application_id':application_id,
+		}
+		withdrawn_url = url + 'applications/'+application_id+'/withdraw?access_token=' + token 
+					+'&application_id='+application_id
+		return $http.post(withdrawn_url,param,{});
+	}
+
+	this.accept = function(token,application_id) {
+		param = {
+			'access_token':token,
+			'application_id':application_id,
+		}
+		accept_url = url + 'applications/'+application_id+'/match?access_token=' + token 
+					+'&application_id='+application_id+''
+		return $http.post(accept_url,param,{})
+	}
+}
+
+function ProfileService($http) {
+	var url = 'https://gis-api.aiesec.org/v2/people/';
+
+	this.profile = function(token,person_id) {
+		return $http.get(url+person_id,{params:{'access_token':token}})
+	}
+
+	this.edit = function(token,person_id,profile) {
+		edit_url = url+person_id+'?access_token='+token;
+		return $http.patch(edit_url,{person:profile});
+	}
+
+	this.create = function(data) {
+		return $http.post('http://bazicon.aiesec.org.br/new_person',data);
+	}
+
+	this.create_academic_xp = function(token,xp,person_id) {
+		edit_url = url+person_id+'/academic_experiences?access_token='+token;
+		return $http.post(edit_url,{experience:xp});
+	}
+
+
+	this.edit_academic_xp = function(token,xp,person_id) {
+		edit_url = url+person_id+'/academic_experiences/'+ xp.id +'?access_token=' + token;
+		return $http.patch(edit_url,{experience:xp});
+	}
+
+	this.remove_academic_xp = function(token,xp,person_id) {
+		edit_url = url+person_id+'/academic_experiences/'+ xp.id +'?access_token='+token;
+		return $http.delete(edit_url,{'person_id':person_id,'academic_exp_id':xp.id});
+	}
+
+	this.create_professional_xp = function(token,xp,person_id) {
+		edit_url = url+person_id+'/professional_experiences?access_token='+token;
+		return $http.post(edit_url,{experience:xp});
+	}
+
+	this.edit_professional_xp = function(token,xp,person_id) {
+		edit_url = url+person_id+'/professional_experiences/'+ xp.id +'?access_token=' + token;
+		return $http.patch(edit_url,{experience:xp});
+	}
+
+	this.remove_professional_xp = function(token,xp,person_id) {
+		edit_url = url+person_id+'/professional_experiences/'+ xp.id +'?access_token='+token;
+		return $http.delete(edit_url,{'person_id':person_id,'professional_exp_id':xp.id});
+	}
+}
+
+function ListsService($http) {
+	this.get_lists = function(token) {
+		return $http.get('https://gis-api.aiesec.org/v2/lists/',{params:{'access_token':token,'lists[]':['backgrounds','languages','issues','skills','work_fields','work_types','nationalities','industries','study_levels','home_mcs']}})
 	}
 }
 
 angular.module('impactbrazil')
 	.service('OpportunitiesService',OpportunitiesService)
+	.service('ApplicationService',ApplicationService)
+	.service('ProfileService',ProfileService)
+	.service('ListsService',ListsService)
 	.service('AuthService',AuthService);

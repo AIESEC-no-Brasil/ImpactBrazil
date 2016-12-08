@@ -58,7 +58,17 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         })
         .state('index.profile', {
             url: "/profile",
-            templateUrl: "views/my_profile.html",
+            templateUrl: "views/profile/profile.html",
+        })
+        .state('index.profile.edit', {
+            url: "/edit",
+            templateUrl: "views/profile/edit.html",
+            controller: 'EditProfileCtrl'
+        })
+        .state('index.profile.applications', {
+            url: "/applications",
+            templateUrl: "views/profile/applications.html",
+            controller: 'ApplicationsCtrl'
         })
         .state('sign_in', {
             url: "/sign_in?applyTo",
@@ -67,11 +77,18 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         })
 }
 angular
-    .module('impactbrazil').filter("nl2br", function($filter) {
-     return function(data) {
-        if (!data) return data;
-            return data.replace(/\n\r?/g, '<br />');
+    .module('impactbrazil')
+    .filter("nl2br", ['$sce', function ($sce) {
+        return function (text) {
+            return text ? $sce.trustAsHtml(text.replace(/\n/g, '<br/>')) : '';
         };
+    }])
+    .filter("str_date", function($filter){
+        return function(data) {
+            console.log(data);
+            if (data != null || data != '') {return new Date(data);}
+            else return new Date();
+        }
     })
     .config(config)
     .run(function($rootScope, $state, $location, $anchorScroll, $stateParams) {

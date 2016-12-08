@@ -5750,101 +5750,13 @@ i {
  * form
  * --------------------------------------------------
  */
-.form-control {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  color: #212121;
-}
-
-.form-control::-webkit-input-placeholder {
-  color: #212121;
-}
-
-.form-control::-moz-placeholder {
-  color: #212121;
-}
-
-.form-control:-ms-input-placeholder {
-  color: #212121;
-}
-
-.form-control::-ms-input-placeholder {
-  color: #212121;
-}
-
-form .required {
-  position: relative;
-}
-
-form .required:after {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  content: "*";
-  line-height: 1;
-  color: #ff5454;
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-}
-
-form._default .form-group {
-  -webkit-border-radius: 2px;
-          border-radius: 2px;
-  padding: 5px 20px;
-  background-color: #f4f5f9;
-}
-
-form._default .form-label {
-  opacity: 0.7;
-  margin-bottom: 0;
-  font-size: 12px;
-  font-weight: 900;
-  text-transform: capitalize;
-}
-
-form._default .form-control {
-  border-width: 0;
-  -webkit-border-radius: 0;
-          border-radius: 0;
-  border-color: #212121;
-  padding: 0;
-  background-color: transparent;
-}
-
-form._default textarea {
-  resize: vertical;
-}
-
-.form-group.error .form-label {
-  color: #ff5454;
-}
-
-.form-notify {
-  margin-top: 20px;
-  font-size: 13px;
-  text-align: center;
-}
-
-.form-notify i {
-  margin-right: 10px;
-}
 
 /**
  * button
  * --------------------------------------------------
  */
 .btn {
-  -webkit-transition: all 0.2s ease-in-out;
-       -o-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
-  line-height: 1;
-  overflow: hidden;
-  padding: 17px 24px 17px 25px;
-  border-width: 2px;
-  -webkit-border-radius: 4px;
-          border-radius: 4px;
   font-family: "Open Sans", Arial, sans-serif;
-  font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -5865,12 +5777,6 @@ form._default textarea {
 .btn span + i {
   margin-right: 0;
   margin-left: 12px;
-}
-
-@media (min-width: 768px) {
-  .btn {
-    padding: 22px 39px 22px 40px;
-  }
 }
 
 .btn-default {
