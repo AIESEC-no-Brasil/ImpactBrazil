@@ -7,7 +7,6 @@ function OpportunitiesService($filter,$http) {
 			'filters[programmes][]':filters['programmes'],
 			'filters[committee]':filters['committee'],
 			'filters[home_mcs][]':filters['home_mcs'],
-			'filters[is_ge]':filters['is_ge'],
 			'filters[work_fields][]':filters['work_fields'],
 			'filters[sdg_goals][]':filters['sdg_goals'],
 			'access_token':token,

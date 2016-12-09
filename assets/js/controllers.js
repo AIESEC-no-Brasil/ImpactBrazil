@@ -10,13 +10,10 @@ function opportunitiesCtrl($scope,$state,$stateParams,$localStorage,Opportunitie
 	function init_params() {
 		if ($state.current.name == 'index.portal_gv') {
 			$scope.filters['programmes'] = 1;
-			$scope.filters['is_ge'] = undefined;
 		} else if ($state.current.name == 'index.portal_ge') {
-			$scope.filters['programmes'] = 2;
-			$scope.filters['is_ge'] = true;
+			$scope.filters['programmes'] = 5;
 		} else if ($state.current.name == 'index.portal_gt') {
 			$scope.filters['programmes'] = 2;
-			$scope.filters['is_ge'] = false;
 		}
 		$scope.filters['committee'] = ($stateParams.lc != undefined && $stateParams.lc != "") ? $stateParams.lc : undefined;
 		$scope.filters['home_mcs'] = ($stateParams.lc == undefined || $stateParams.lc == "") ? 1606 : undefined;
